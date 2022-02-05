@@ -18,7 +18,8 @@ class MultiFile(object):
         files: str
         An arbitrary number of single file paths.
         At any iteration, 
-        MultiFile object reads a line from any single file.
+        MultiFile object reads a line from any single file,
+        in the same order as the are passed to the object construction.
         
         logging: bool, optional
         This parameter handles the logging on the stderr.
@@ -62,7 +63,8 @@ class MultiFile(object):
     def __iter__(self):
         """
         At any iteration,
-        the MultiFile object reads a line from any single file.
+        the MultiFile object reads a line from any single file,
+        in the same order as the are passed to the object construction.
         If all readings produce a line,
         the iteration yelds the list of all the read lines.
         Otherwise, if any file is finished, the behaviour is as follow.
