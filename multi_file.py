@@ -7,6 +7,29 @@ import sys
 
 
 class MultiFile(object):
+    """
+    This class is meant to be used to read lines 
+    from an arbitrary number of files in parallel.
+    
+    Attributes:
+    -----------
+    _logging: bool
+        A bool which switches on/off logging to stderr.
+    _permissive: bool
+        A bool which indicates whether 
+        the iteration should go on when a file in the list ends.
+    _files: list of file objects
+        The list of file objects open in read mode.
+    _filesToIterate: list of file objects
+        The list of files objects open in read mode,
+        over which the MultiFile iterates.
+        This list is different from the other 
+        because it does not include the consumed files
+    _IOErrStrings: str
+        This string is used to record IOError
+        while opening files in read mode.
+    """
+    
     _Log_Format = "%(levelname)s %(asctime)s - %(message)s"
     logging.basicConfig(stream = sys.stderr, format = _Log_Format, level = logging.INFO)
     _class_logger = logging.getLogger(__name__).getChild(__qualname__)
@@ -16,25 +39,23 @@ class MultiFile(object):
         Parameters:
         -----------
         files: str
-        An arbitrary number of single file paths.
-        At any iteration, 
-        MultiFile object reads a line from any single file,
-        in the same order as they are passed to the object construction.
-        For the exact procedure, see __iter__.
-        
+            An arbitrary number of single file paths.
+            At any iteration, 
+            MultiFile object reads a line from any single file,
+            in the same order as they are passed to the object construction.
+            For the exact procedure, see __iter__.
         logging: bool, optional
-        This parameter handles the logging to the stderr.
-        If set to True, information about consumed files
-        is produced on the stderr after normal stdout is printed.
-        The logging level is INFO.
-        Default value is False.
-        
+            This parameter handles the logging to the stderr.
+            If set to True, information about consumed files
+            is produced on the stderr after normal stdout is printed.
+            The logging level is INFO.
+            Default value is False.
         permissive: bool, optional
-        This parameter handles the behaviour of the iteration,
-        when a file is consumed.
-        If set to False, the iteration breaks when the firt file ends.
-        If seto to True, the itereation goes on.
-        Default value is False.
+            This parameter handles the behaviour of the iteration,
+            when a file is consumed.
+            If set to False, the iteration breaks when the firt file ends.
+            If seto to True, the itereation goes on.
+            Default value is False.
         """
         
         self._logging = logging
