@@ -10,7 +10,31 @@ class MultiFile(object):
     _Log_Format = "%(levelname)s %(asctime)s - %(message)s"
     logging.basicConfig(stream = sys.stderr, format = _Log_Format, level = logging.INFO)
     _class_logger = logging.getLogger(__name__).getChild(__qualname__)
+    
     def __init__(self, *files, logging = False, permissive = False):
+        """
+        Parameters:
+        -----------
+        files: str
+        An arbitrary number of single file paths.
+        At any iteration, 
+        MultiFile object reads a line from any single file.
+        
+        logging: bool, optional
+        This parameter handles the logging on the stderr.
+        If set to True, information about consumed files
+        is produced on the stderr after normal stdout is printed.
+        The logging level is INFO.
+        Default value is False.
+        
+        permissive: bool, optional
+        This parameter handles the behaviour of the iteration,
+        when a file is consumed.
+        If set to False, the iteration breaks when the firt file ends.
+        If seto to True, the itereation goes on.
+        Default value is False.
+        """
+        
         self._logging = logging
         self._permissive = permissive
         self._files = []
@@ -45,7 +69,7 @@ class MultiFile(object):
             else:
                 overFilesNames = [ overFile.name for overFile, line in zip(self._filesToIterate, lines) if line == '' ]
                 if self._logging:
-                    self._class_logger.info("over:" + ', '.join(overFilesNames))
+                    self._class_logger.info("over: " + ', '.join(overFilesNames))
                 if self._permissive:
                     lines = [ line for line in lines if line ]
                     if lines:
