@@ -60,6 +60,21 @@ class MultiFile(object):
            stillOpenFile.close()
 
     def __iter__(self):
+        """
+        At any iteration,
+        the MultiFile object reads a line from any single file.
+        If all readings produce a line,
+        the iteration yelds the list of all the read lines.
+        Otherwise, if any file is finished, the behaviour is as follow.
+        If logging is set to True,
+        a log to stderr signals the finished files.
+        If permissive is set to True,
+        the MultiFile object yelds a list 
+        containing only the lines read from non consumed files,
+        and the iteration continues on these files only.
+        If permissive is set to False, the iteration stops.
+        """
+        
         while True:
             if not self._filesToIterate:
                 raise StopIteration
