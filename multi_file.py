@@ -19,10 +19,11 @@ class MultiFile(object):
         An arbitrary number of single file paths.
         At any iteration, 
         MultiFile object reads a line from any single file,
-        in the same order as the are passed to the object construction.
+        in the same order as they are passed to the object construction.
+        For the exact procedure, see __iter__.
         
         logging: bool, optional
-        This parameter handles the logging on the stderr.
+        This parameter handles the logging to the stderr.
         If set to True, information about consumed files
         is produced on the stderr after normal stdout is printed.
         The logging level is INFO.
@@ -64,9 +65,9 @@ class MultiFile(object):
         """
         At any iteration,
         the MultiFile object reads a line from any single file,
-        in the same order as the are passed to the object construction.
+        in the same order as they are passed to the object construction.
         If all readings produce a line,
-        the iteration yelds the list of all the read lines.
+        the iteration yelds a list whose elements are the read lines.
         Otherwise, if any file is finished, the behaviour is as follow.
         If logging is set to True,
         a log to stderr signals the finished files.
