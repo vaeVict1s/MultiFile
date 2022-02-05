@@ -10,6 +10,9 @@ class MultiFile(object):
     """
     This class is meant to be used to read lines 
     from an arbitrary number of files in parallel.
+    It's possible to use MultiFile both
+    as a standaolne object
+    and in a with statement.
     
     Attributes:
     -----------
@@ -118,5 +121,13 @@ class MultiFile(object):
                     self._filesToIterate = []
 
     def close(self):
+        """
+        When the MultiFile is not used in a with statement,
+        the user is responsible for closing the MultiFile.
+        Otherwise, 
+        the files whose path are passed to the MultiFile construction
+        remain open.
+        """
+        
         for stillOpenFile in self._files:
             stillOpenFile.close()
