@@ -11,7 +11,7 @@ class MultiFile(object):
     This class is meant to be used to read lines 
     from an arbitrary number of files in parallel.
     It's possible to use MultiFile 
-    both as a standaolne object and in a with statement.
+    both as a standalone object and in a with statement.
     
     Attributes:
     -----------
